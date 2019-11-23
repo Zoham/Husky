@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+
+<html>
+<head>
+	<title>Husky</title>
+	<style type="text/css">
+		div {
+			
+		}
+		input {
+		    float: center;
+		    width: 100%;
+
+		    /* for the right side shifted glitch */
+		    -ms-box-sizing: border-box; /* ie8 */
+		    -khtml-box-sizing: border-box; /* konqueror */
+		    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+		    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+		    box-sizing: border-box;         /* Opera/IE 8+ */
+		    box-sizing: border-box; /* css3 rec */
+		}
+	</style>
+</head>
+
+<body>
+	<div id="chat">
+		<p>	Wiki </p>
+
+	</div>
+	
+
+	<form onsubmit="return update()">
+		<input type="text" id="message"
+		width="100%" />
+	</form>
+	
+</body>
+
+<script type="text/javascript">
+	function update() {
+		var messageBox = document.getElementById("message")
+		var para = document.createElement("p");
+		para.innerHTML = messageBox.value;
+
+		document.getElementById("chat").appendChild(para);
+		messageBox.value = "";
+		return false;
+	}
+</script>
+</html>
