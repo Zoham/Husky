@@ -3,6 +3,7 @@
 
 <html>
 <head>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<title>Husky</title>
 	<style type="text/css">
 		div {
@@ -31,21 +32,32 @@
 	
 
 	<form onsubmit="return update()">
-		<input type="text" id="message"
-		width="100%" />
+		<input type="text" id="query"
+		width="100%" name="query"/>
 	</form>
+
+	<a href=# id=calculate>calculate server side</a>
 	
 </body>
 
-<script type="text/javascript">
-	function update() {
-		var messageBox = document.getElementById("message")
-		var para = document.createElement("p");
-		para.innerHTML = messageBox.value;
-
-		document.getElementById("chat").appendChild(para);
-		messageBox.value = "";
-		return false;
-	}
+<script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 </script>
+
+<script type="text/javascript">
+  $(function() {
+    $('a#calculate').bind('click', function() {
+      $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
+        query: $('input[name="query"]').val()
+      }, function(data) {
+      	var para = document.createElement("p");
+		para.innerHTML = data.result;
+      	document.getElementById("chat").appendChild(para);
+		messageBox.value = "";
+      });
+      return false;
+    });
+  });
+</script>
+
 </html>
