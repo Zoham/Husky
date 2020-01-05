@@ -11,7 +11,7 @@
 		}
 		input {
 		    float: center;
-		    width: 100%;
+		    /*width: 100%;*/
 
 		    /* for the right side shifted glitch */
 		    -ms-box-sizing: border-box; /* ie8 */
@@ -21,22 +21,29 @@
 		    box-sizing: border-box;         /* Opera/IE 8+ */
 		    box-sizing: border-box; /* css3 rec */
 		}
+		.footer {
+			position: fixed;
+			bottom: 0;
+		}
 	</style>
 </head>
 
 <body>
 	<div id="chat">
-		<p>	Wiki </p>
+		<p>	Hi There ! </p>
 
 	</div>
 	
-
-	<form onsubmit="return update()">
-		<input type="text" id="query"
-		width="100%" name="query"/>
-	</form>
-
-	<a href=# id=calculate>calculate server side</a>
+	<div class="footer">
+		<form onsubmit="return update()">
+			<div class="input-group">
+			    <input class="form-control width100" type="text" id="query" name="query"/>
+			    <span class="input-group-btn">
+			        <button class="btn btn-info">Pow</button>
+			    </span>
+			</div>
+		</form>
+	</div>
 	
 </body>
 
@@ -46,14 +53,32 @@
 
 <script type="text/javascript">
   $(function() {
-    $('a#calculate').bind('click', function() {
+    $('button').bind('click', function() {
       $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
         query: $('input[name="query"]').val()
       }, function(data) {
       	var para = document.createElement("p");
 		para.innerHTML = data.result;
       	document.getElementById("chat").appendChild(para);
-		messageBox.value = "";
+		document.getElementById("query").value = "";
+		window.scrollTo(0, document.body.scrollHeight);
+      });
+      return false;
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(function() {
+    $('form').submit(function(e) {
+      $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
+        query: $('input[name="query"]').val()
+      }, function(data) {
+      	var para = document.createElement("p");
+		para.innerHTML = data.result;
+      	document.getElementById("chat").appendChild(para);
+		document.getElementById("query").value = "";
+		window.scrollTo(0, document.body.scrollHeight);
       });
       return false;
     });
